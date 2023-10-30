@@ -199,7 +199,7 @@ open class HexGrid: Codable {
     ///     Consider using `Direction` enumeration instead of an Integer value.
     ///
     ///     Example: `Direction.Pointy.northEast.rawValue`
-    public func neighbor(for cell: Cell, at direction: Int) throws -> Cell? {
+    open func neighbor(for cell: Cell, at direction: Int) throws -> Cell? {
         return try cellAt(Math.neighbor(at: direction, origin: cell.coordinates))
     }
     
