@@ -1,5 +1,5 @@
 /// HexGrid is an entry point of the package. It represents a grid of hexagonal cells
-public class HexGrid: Codable {
+open class HexGrid: Codable {
 
     // MARK: Properties
 
