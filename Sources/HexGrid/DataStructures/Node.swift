@@ -16,11 +16,11 @@ internal class Node<T: Hashable> {
 }
 
 extension Node: Comparable {
-    static func == <T>(lhs: Node<T>, rhs: Node<T>) -> Bool {
+    static func == (lhs: Node, rhs: Node) -> Bool {
         return lhs === rhs
     }
 
-    static func < <T>(lhs: Node<T>, rhs: Node<T>) -> Bool {
+    static func < (lhs: Node, rhs: Node) -> Bool {
         return (lhs.totalScore) < (rhs.totalScore)
     }
 }
