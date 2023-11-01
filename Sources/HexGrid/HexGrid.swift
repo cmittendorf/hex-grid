@@ -306,7 +306,7 @@ open class HexGrid: Codable {
     ///   - target: `Cell`
     /// - Returns: `Set<Cell>` or `nil` in case valid line doesn't exist
     /// - Throws: `InvalidArgumentsError` in case underlying cube coordinates initializer propagate the error.
-    public func line(from origin: Cell, to target: Cell) throws -> Set<Cell>? {
+    open func line(from origin: Cell, to target: Cell) throws -> Set<Cell>? {
         if let lineCoords = try lineCoordinates(from: origin.coordinates, to: target.coordinates) {
             return Set(lineCoords.compactMap { self.cellAt($0) })
         }
