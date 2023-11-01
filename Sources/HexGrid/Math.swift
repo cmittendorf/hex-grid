@@ -1,7 +1,7 @@
 import Foundation
 
 /// Math operations for hexagon related calculations.
-internal struct Math {
+public struct Math {
     
     // Basic arithmetic operations
     /// Add operation
