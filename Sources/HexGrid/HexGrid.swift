@@ -293,7 +293,7 @@ open class HexGrid: Codable {
     ///   - target: `CubeCoordinates`
     /// - Returns: `Set<CubeCoordinates>` or `nil` in case valid line doesn't exist
     /// - Throws: `InvalidArgumentsError` in case underlying cube coordinates initializer propagate the error.
-    public func lineCoordinates(
+    open func lineCoordinates(
         from origin: CubeCoordinates,
         to target: CubeCoordinates) throws -> Set<CubeCoordinates>? {
         let mathLine = try Math.line(from: origin, to: target)
