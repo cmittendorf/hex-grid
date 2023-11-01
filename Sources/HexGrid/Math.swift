@@ -2,7 +2,7 @@ import Foundation
 
 /// Math operations for hexagon related calculations.
 public struct Math {
-    
+
     // Basic arithmetic operations
     /// Add operation
     ///
@@ -100,7 +100,7 @@ public struct Math {
     ///     - origin: Coordinates of the origin hexagon.
     /// - Returns: Coordinates of a neighbor at specified direction
     /// - Throws: `InvalidArgumentsError` in case underlying cube coordinates initializer propagate the error.
-    static func neighbor(at index: Int, origin: CubeCoordinates) throws -> CubeCoordinates {
+    public static func neighbor(at index: Int, origin: CubeCoordinates) throws -> CubeCoordinates {
         return try add(a: origin, b: direction(at: index))
     }
     
@@ -110,7 +110,7 @@ public struct Math {
     ///     - coordinates: Coordinates of the origin hexagon.
     /// - Returns: Set of CubeCoordinates
     /// - Throws: `InvalidArgumentsError` in case underlying cube coordinates initializer propagate the error.
-    static func neighbors(for coordinates: CubeCoordinates) throws -> Set<CubeCoordinates> {
+    public static func neighbors(for coordinates: CubeCoordinates) throws -> Set<CubeCoordinates> {
         var allNeighbors: Set<CubeCoordinates> = Set<CubeCoordinates>()
         for index in 0...5 {
             allNeighbors.insert(try neighbor(at: index, origin: coordinates))
@@ -145,7 +145,7 @@ public struct Math {
     ///   index `-1` will return the same direction as index `5`
     ///
     ///   index `13` will return the same direction as index `1`
-    static func diagonalDirection(at index: Int) -> CubeCoordinates {
+    public static func diagonalDirection(at index: Int) -> CubeCoordinates {
         return diagonalDirections[numberInCyclingRange(index, in: 6)]
     }
     
@@ -156,7 +156,7 @@ public struct Math {
     ///     - origin: Coordinates of the origin hexagon.
     /// - Returns: Coordinates of a diagonal neighbor at specified direction
     /// - Throws: `InvalidArgumentsError` in case underlying cube coordinates initializer propagate the error.
-    static func diagonalNeighbor(at index: Int, origin: CubeCoordinates) throws -> CubeCoordinates {
+    public static func diagonalNeighbor(at index: Int, origin: CubeCoordinates) throws -> CubeCoordinates {
         return try add(a: origin, b: diagonalDirection(at: index))
     }
     
@@ -166,7 +166,7 @@ public struct Math {
     ///     - coordinates: Coordinates of the origin hexagon.
     /// - Returns: Set of CubeCoordinates
     /// - Throws: `InvalidArgumentsError` in case underlying cube coordinates initializer propagate the error.
-    static func diagonalNeighbors(for coordinates: CubeCoordinates) throws -> Set<CubeCoordinates> {
+    public static func diagonalNeighbors(for coordinates: CubeCoordinates) throws -> Set<CubeCoordinates> {
         var allNeighbors: Set<CubeCoordinates> = Set<CubeCoordinates>()
         for index in 0...5 {
             allNeighbors.insert(try diagonalNeighbor(at: index, origin: coordinates))
@@ -180,7 +180,7 @@ public struct Math {
     ///     - coordinates: coordinates to be rotated
     /// - Returns: rotated coordinates
     /// - Throws: `InvalidArgumentsError` in case underlying cube coordinates initializer propagate the error.
-    static func rotateLeft(coordinates: CubeCoordinates) throws -> CubeCoordinates
+    public static func rotateLeft(coordinates: CubeCoordinates) throws -> CubeCoordinates
     {
         return try CubeCoordinates(x: -coordinates.y, y: -coordinates.z, z: -coordinates.x)
     }
@@ -190,7 +190,7 @@ public struct Math {
     ///     - coordinates: coordinates to be rotated
     /// - Returns: rotated coordinates
     /// - Throws: `InvalidArgumentsError` in case underlying cube coordinates initializer propagate the error.
-    static func rotateRight(coordinates: CubeCoordinates) throws -> CubeCoordinates
+    public static func rotateRight(coordinates: CubeCoordinates) throws -> CubeCoordinates
     {
         return try CubeCoordinates(x: -coordinates.z, y: -coordinates.x, z: -coordinates.y)
     }
@@ -211,7 +211,7 @@ public struct Math {
     ///     - gridOrigin: display coordinates of a grid origin
     ///     - orientation: orientation of a grid
     /// - Returns: Array of six display coordinates (polygon vertices).
-    static func hexCorners(
+    public static func hexCorners(
         coordinates: CubeCoordinates,
         hexSize: HexSize,
         origin: Point,
@@ -231,7 +231,7 @@ public struct Math {
     ///     - a: first coordinates
     ///     - b: second coordinates
     /// - Returns: Interpolated coordinates
-    static func lerpCube(a: CubeFractionalCoordinates, b: CubeFractionalCoordinates, f: Double) -> CubeCoordinates
+    public static func lerpCube(a: CubeFractionalCoordinates, b: CubeFractionalCoordinates, f: Double) -> CubeCoordinates
     {
         return CubeCoordinates(
             x: a.x * (1.0 - f) + b.x * f,
@@ -244,7 +244,7 @@ public struct Math {
     ///     - from: origin coordinates
     ///     - to: target coordinates
     /// - Returns: Set of all coordinates making a line from coordinate `a` to coordinate `b`
-    static func line(from a: CubeCoordinates, to b: CubeCoordinates) throws -> Set<CubeCoordinates> {
+    public static func line(from a: CubeCoordinates, to b: CubeCoordinates) throws -> Set<CubeCoordinates> {
         let n = try distance(from: a, to: b)
         let aNudge = try CubeFractionalCoordinates(
             x: Double(a.x) + 1e-06,
@@ -267,7 +267,7 @@ public struct Math {
     ///     - from: coordinates of a ring center
     ///     - in: ring radius
     /// - Returns: Set of all coordinates making a ring from hex `origin` on `radius`
-    static func ring(from origin: CubeCoordinates, in radius: Int) throws -> Set<CubeCoordinates> {
+    public static func ring(from origin: CubeCoordinates, in radius: Int) throws -> Set<CubeCoordinates> {
         var results = Set<CubeCoordinates>()
         switch radius {
         case Int.min..<0:
@@ -290,7 +290,7 @@ public struct Math {
     ///     - from: coordinates of a ring center
     ///     - in: ring radius
     /// - Returns: Set of all coordinates making a filled ring from hex `origin` on `radius`
-    static func filledRing(from origin: CubeCoordinates, in radius: Int) throws -> Set<CubeCoordinates> {
+    public static func filledRing(from origin: CubeCoordinates, in radius: Int) throws -> Set<CubeCoordinates> {
         var results = Set<CubeCoordinates>()
         if radius < 0 {
             throw InvalidArgumentsError(message: "Radius can't be less than zero.")
@@ -308,7 +308,7 @@ public struct Math {
     ///     - on: grid used for pathfinding
     ///     - blocked: set of blocked coordinates
     /// - Returns: Set of all reachable coordinates within specified `radius`, considering obstacles
-    static func breadthFirstSearch(
+    public static func breadthFirstSearch(
         from origin: CubeCoordinates,
         in steps: Int,
         on grid: HexGrid) throws -> Set<CubeCoordinates> {
@@ -347,7 +347,7 @@ public struct Math {
     ///   Default value is `false` which means that center of cooridnates has to be visible in order to include it in a result set.
     /// - Throws: propagates error (usually might be caused by invalid CubeCoordinates)
     /// - Returns: `Set<CubeCoordinates>`
-    static func calculateFieldOfView (
+    public static func calculateFieldOfView (
         from origin: CubeCoordinates,
         in radius: Int,
         on grid: HexGrid,
@@ -446,7 +446,7 @@ public struct Math {
     ///     - to: target coordinates
     ///     - on: HexGrid on which is pathfinding performed
     /// - Returns: Path (Sorted Array) of consequent coordinates from start to target coordinates or `nil` in case a path doesn't exist.
-    static func aStarPath(
+    public static func aStarPath(
         from: CubeCoordinates,
         to: CubeCoordinates,
         on grid: HexGrid) throws -> [CubeCoordinates]? {
